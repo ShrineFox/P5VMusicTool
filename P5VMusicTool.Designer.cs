@@ -212,12 +212,14 @@
             addDestToCurrentSongToolStripMenuItem.Name = "addDestToCurrentSongToolStripMenuItem";
             addDestToCurrentSongToolStripMenuItem.Size = new Size(306, 26);
             addDestToCurrentSongToolStripMenuItem.Text = "Add Dest to Current Song";
+            addDestToCurrentSongToolStripMenuItem.Click += AddDestToCurrentSong_Click;
             // 
             // removeDestFromCurrentSongToolStripMenuItem
             // 
             removeDestFromCurrentSongToolStripMenuItem.Name = "removeDestFromCurrentSongToolStripMenuItem";
             removeDestFromCurrentSongToolStripMenuItem.Size = new Size(306, 26);
             removeDestFromCurrentSongToolStripMenuItem.Text = "Remove Dest from Current Song";
+            removeDestFromCurrentSongToolStripMenuItem.Click += RemoveDestFromCurrentSong_Click;
             // 
             // tabControl_Main
             // 
@@ -429,6 +431,7 @@
             listBox_SongDestinations.Name = "listBox_SongDestinations";
             listBox_SongDestinations.Size = new Size(248, 222);
             listBox_SongDestinations.TabIndex = 2;
+            listBox_SongDestinations.DoubleClick += SongDestinations_DoubleClick;
             // 
             // groupBox1
             // 

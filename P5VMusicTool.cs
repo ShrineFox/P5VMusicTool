@@ -167,6 +167,10 @@ namespace P5VMusicTool
                 AddCollection();
             else if (lastClickedListBox == "listBox_Songs")
                 AddSong();
+            else if (lastClickedListBox == "listBox_SongDestinations")
+                CreateDestination(true);
+            else if (lastClickedListBox == "listBox_Destinations")
+                CreateDestination();
         }
 
         private void Remove_Click(object sender, EventArgs e)
@@ -178,6 +182,10 @@ namespace P5VMusicTool
                 RemoveCollection();
             else if (lastClickedListBox == "listBox_Songs")
                 RemoveSong();
+            else if (lastClickedListBox == "listBox_SongDestinations")
+                RemoveDestinationFromSelectedSong();
+            else if (lastClickedListBox == "listBox_Destinations")
+                DeleteDestination();
         }
 
         private void AddSong_Click(object sender, EventArgs e)
@@ -230,7 +238,9 @@ namespace P5VMusicTool
             if (!selectedSong.DestinationNames.Any(x => x.Equals(selectedDestination.Name)))
             {
                 selectedSong.DestinationNames.Add(selectedDestination.Name);
+                bs_SongDestinations.DataSource = selectedSong.DestinationNames;
                 bs_SongDestinations.ResetBindings(false); // update UI
+                tabControl_Main.SelectedIndex = 0; // switch to Songs tab
             }
         }
 
@@ -241,9 +251,19 @@ namespace P5VMusicTool
             CreateDestination();
         }
 
-        private void CreateDestination()
+        private void CreateDestination(bool addToCurrentSong = false)
         {
-            currentProject.Destinations.Add(new Destination() { Name = "New Destination", CollectionPath = "" });
+            currentProject.Destinations.Add(new Destination() { Name = "New Destination" });
+            if (addToCurrentSong)
+            {
+                Song selectedSong = (Song)listBox_Songs.SelectedItem;
+                if (selectedSong != null)
+                {
+                    selectedSong.DestinationNames.Add(currentProject.Destinations.Last().Name);
+                    bs_SongDestinations.DataSource = selectedSong.DestinationNames;
+                    bs_SongDestinations.ResetBindings(false); // update UI
+                }
+            }
             bs_Destinations.ResetBindings(false); // update UI
             tabControl_Main.SelectedIndex = 1; // switch to Destinations tab
             listBox_Destinations.SelectedIndex = listBox_Destinations.Items.Count - 1; // select newly created destination
@@ -329,6 +349,39 @@ namespace P5VMusicTool
             chk_DestPinch.Checked = selectedDestination.PinchBattle;
             chk_DestTalk.Checked = selectedDestination.BattleTalk;
             chk_DestVictory.Checked = selectedDestination.BattleVictory;
+        }
+
+        private void AddDestToCurrentSong_Click(object sender, EventArgs e)
+        {
+            AddDestinationToSelectedSong();
+        }
+
+        private void RemoveDestFromCurrentSong_Click(object sender, EventArgs e)
+        {
+            RemoveDestinationFromSelectedSong();
+        }
+
+        private void RemoveDestinationFromSelectedSong()
+        {
+            Song selectedSong = (Song)listBox_Songs.SelectedItem;
+            Destination selectedDestination = (Destination)listBox_Destinations.SelectedItem;
+            if (selectedSong == null || selectedDestination == null) return;
+            selectedSong.DestinationNames.RemoveAll(x => x.Equals(selectedDestination.Name));
+            bs_SongDestinations.ResetBindings(false); // update UI
+        }
+
+        private void SongDestinations_DoubleClick(object sender, EventArgs e)
+        {
+            string selectedDestinationName = (string)listBox_SongDestinations.SelectedItem;
+            if (string.IsNullOrEmpty(selectedDestinationName))
+                return;
+
+            if (!currentProject.Destinations.Any(x => x.Name.Equals(selectedDestinationName)))
+                return;
+
+            Destination selectedDestination = currentProject.Destinations.First(x => x.Name.Equals(selectedDestinationName));
+            listBox_Destinations.SelectedItem = selectedDestination;
+            tabControl_Main.SelectedIndex = 1; // switch to Destinations tab
         }
     }
 
