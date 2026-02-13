@@ -200,6 +200,14 @@ namespace P5VMusicTool
                 DeleteDestination();
         }
 
+        private void MoveUp_Click(object sender, EventArgs e)
+        {
+            MoveSelectedItem(-1);
+        }
 
+        private void MoveDown_Click(object sender, EventArgs e)
+        {
+            MoveSelectedItem(1);
+        }
     }
 }

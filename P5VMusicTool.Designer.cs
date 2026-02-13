@@ -44,6 +44,7 @@
             removeDestinationToolStripMenuItem = new ToolStripMenuItem();
             addDestToCurrentSongToolStripMenuItem = new ToolStripMenuItem();
             removeDestFromCurrentSongToolStripMenuItem = new ToolStripMenuItem();
+            importToolStripMenuItem = new ToolStripMenuItem();
             tabControl_Main = new TabControl();
             tabPage_Songs = new TabPage();
             splitContainer1 = new SplitContainer();
@@ -54,13 +55,11 @@
             removeToolStripMenuItem = new ToolStripMenuItem();
             addDestinationToSelectedSongToolStripMenuItem = new ToolStripMenuItem();
             listBox_Collections = new ListBox();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            tlp_Songs = new TableLayoutPanel();
             groupBox_SongLocation = new GroupBox();
             tableLayoutPanel2 = new TableLayoutPanel();
             btn_SongLocation = new Button();
             txt_SongPath = new TextBox();
-            groupBox3 = new GroupBox();
-            num_SongCueID = new NumericUpDown();
             groupBox_SongDests = new GroupBox();
             listBox_SongDestinations = new ListBox();
             groupBox1 = new GroupBox();
@@ -69,6 +68,10 @@
             splitContainer2 = new SplitContainer();
             listBox_Destinations = new ListBox();
             tableLayoutPanel_Dest = new TableLayoutPanel();
+            groupBox_WaveID = new GroupBox();
+            num_WaveID = new NumericUpDown();
+            groupBox3 = new GroupBox();
+            num_CueID = new NumericUpDown();
             groupBox4 = new GroupBox();
             tlp_BattleBGM = new TableLayoutPanel();
             chk_DestVictory = new CheckBox();
@@ -78,12 +81,10 @@
             chk_DestNormal = new CheckBox();
             groupBox2 = new GroupBox();
             txt_DestCostumeName = new TextBox();
-            groupBox_DestLocation = new GroupBox();
-            tlp_DestLocation = new TableLayoutPanel();
-            btn_DestLocation = new Button();
-            txt_DestPath = new TextBox();
             groupBox_D = new GroupBox();
             txt_DestName = new TextBox();
+            moveUpToolStripMenuItem = new ToolStripMenuItem();
+            moveDownToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             tabControl_Main.SuspendLayout();
             tabPage_Songs.SuspendLayout();
@@ -93,11 +94,9 @@
             splitContainer1.SuspendLayout();
             tlp_Collections.SuspendLayout();
             contextMenuStrip.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
+            tlp_Songs.SuspendLayout();
             groupBox_SongLocation.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
-            groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)num_SongCueID).BeginInit();
             groupBox_SongDests.SuspendLayout();
             groupBox1.SuspendLayout();
             tabPage_Destinations.SuspendLayout();
@@ -106,18 +105,20 @@
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
             tableLayoutPanel_Dest.SuspendLayout();
+            groupBox_WaveID.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)num_WaveID).BeginInit();
+            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)num_CueID).BeginInit();
             groupBox4.SuspendLayout();
             tlp_BattleBGM.SuspendLayout();
             groupBox2.SuspendLayout();
-            groupBox_DestLocation.SuspendLayout();
-            tlp_DestLocation.SuspendLayout();
             groupBox_D.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, importToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 28);
@@ -221,6 +222,13 @@
             removeDestFromCurrentSongToolStripMenuItem.Text = "Remove Dest from Current Song";
             removeDestFromCurrentSongToolStripMenuItem.Click += RemoveDestFromCurrentSong_Click;
             // 
+            // importToolStripMenuItem
+            // 
+            importToolStripMenuItem.Name = "importToolStripMenuItem";
+            importToolStripMenuItem.Size = new Size(68, 24);
+            importToolStripMenuItem.Text = "Import";
+            importToolStripMenuItem.Click += Import_Click;
+            // 
             // tabControl_Main
             // 
             tabControl_Main.Controls.Add(tabPage_Songs);
@@ -255,7 +263,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(tableLayoutPanel1);
+            splitContainer1.Panel2.Controls.Add(tlp_Songs);
             splitContainer1.Size = new Size(786, 383);
             splitContainer1.SplitterDistance = 262;
             splitContainer1.TabIndex = 1;
@@ -285,13 +293,14 @@
             listBox_Songs.Size = new Size(161, 377);
             listBox_Songs.TabIndex = 1;
             listBox_Songs.SelectedIndexChanged += Song_SelectedIndexChanged;
+            listBox_Songs.KeyDown += ListBox_KeyDown;
             // 
             // contextMenuStrip
             // 
             contextMenuStrip.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip.Items.AddRange(new ToolStripItem[] { addToolStripMenuItem, removeToolStripMenuItem, addDestinationToSelectedSongToolStripMenuItem });
+            contextMenuStrip.Items.AddRange(new ToolStripItem[] { addToolStripMenuItem, removeToolStripMenuItem, moveUpToolStripMenuItem, moveDownToolStripMenuItem, addDestinationToSelectedSongToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new Size(304, 76);
+            contextMenuStrip.Size = new Size(304, 152);
             contextMenuStrip.Opening += ContextMenu_Opening;
             // 
             // addToolStripMenuItem
@@ -325,29 +334,29 @@
             listBox_Collections.Size = new Size(89, 377);
             listBox_Collections.TabIndex = 0;
             listBox_Collections.SelectedIndexChanged += Collection_SelectedIndexChanged;
+            listBox_Collections.KeyDown += ListBox_KeyDown;
             // 
-            // tableLayoutPanel1
+            // tlp_Songs
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(groupBox_SongLocation, 0, 2);
-            tableLayoutPanel1.Controls.Add(groupBox3, 0, 1);
-            tableLayoutPanel1.Controls.Add(groupBox_SongDests, 1, 0);
-            tableLayoutPanel1.Controls.Add(groupBox1, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel1.Size = new Size(520, 383);
-            tableLayoutPanel1.TabIndex = 1;
+            tlp_Songs.ColumnCount = 2;
+            tlp_Songs.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlp_Songs.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlp_Songs.Controls.Add(groupBox_SongLocation, 0, 2);
+            tlp_Songs.Controls.Add(groupBox_SongDests, 1, 0);
+            tlp_Songs.Controls.Add(groupBox1, 0, 0);
+            tlp_Songs.Dock = DockStyle.Fill;
+            tlp_Songs.Location = new Point(0, 0);
+            tlp_Songs.Name = "tlp_Songs";
+            tlp_Songs.RowCount = 3;
+            tlp_Songs.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tlp_Songs.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tlp_Songs.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tlp_Songs.Size = new Size(520, 383);
+            tlp_Songs.TabIndex = 1;
             // 
             // groupBox_SongLocation
             // 
-            tableLayoutPanel1.SetColumnSpan(groupBox_SongLocation, 2);
+            tlp_Songs.SetColumnSpan(groupBox_SongLocation, 2);
             groupBox_SongLocation.Controls.Add(tableLayoutPanel2);
             groupBox_SongLocation.Dock = DockStyle.Fill;
             groupBox_SongLocation.Location = new Point(3, 257);
@@ -390,33 +399,13 @@
             txt_SongPath.Size = new Size(398, 27);
             txt_SongPath.TabIndex = 2;
             // 
-            // groupBox3
-            // 
-            groupBox3.Controls.Add(num_SongCueID);
-            groupBox3.Dock = DockStyle.Fill;
-            groupBox3.Location = new Point(3, 130);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(254, 121);
-            groupBox3.TabIndex = 2;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Song Cue ID";
-            // 
-            // num_SongCueID
-            // 
-            num_SongCueID.Dock = DockStyle.Fill;
-            num_SongCueID.Location = new Point(3, 23);
-            num_SongCueID.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
-            num_SongCueID.Name = "num_SongCueID";
-            num_SongCueID.Size = new Size(248, 27);
-            num_SongCueID.TabIndex = 0;
-            // 
             // groupBox_SongDests
             // 
             groupBox_SongDests.Controls.Add(listBox_SongDestinations);
             groupBox_SongDests.Dock = DockStyle.Fill;
             groupBox_SongDests.Location = new Point(263, 3);
             groupBox_SongDests.Name = "groupBox_SongDests";
-            tableLayoutPanel1.SetRowSpan(groupBox_SongDests, 2);
+            tlp_Songs.SetRowSpan(groupBox_SongDests, 2);
             groupBox_SongDests.Size = new Size(254, 248);
             groupBox_SongDests.TabIndex = 1;
             groupBox_SongDests.TabStop = false;
@@ -432,6 +421,7 @@
             listBox_SongDestinations.Size = new Size(248, 222);
             listBox_SongDestinations.TabIndex = 2;
             listBox_SongDestinations.DoubleClick += SongDestinations_DoubleClick;
+            listBox_SongDestinations.KeyDown += ListBox_KeyDown;
             // 
             // groupBox1
             // 
@@ -490,15 +480,17 @@
             listBox_Destinations.Size = new Size(262, 383);
             listBox_Destinations.TabIndex = 1;
             listBox_Destinations.SelectedIndexChanged += Destinations_SelectedIndexChanged;
+            listBox_Destinations.KeyDown += ListBox_KeyDown;
             // 
             // tableLayoutPanel_Dest
             // 
             tableLayoutPanel_Dest.ColumnCount = 2;
             tableLayoutPanel_Dest.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel_Dest.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel_Dest.Controls.Add(groupBox_WaveID, 0, 2);
+            tableLayoutPanel_Dest.Controls.Add(groupBox3, 0, 1);
             tableLayoutPanel_Dest.Controls.Add(groupBox4, 1, 1);
             tableLayoutPanel_Dest.Controls.Add(groupBox2, 1, 0);
-            tableLayoutPanel_Dest.Controls.Add(groupBox_DestLocation, 0, 1);
             tableLayoutPanel_Dest.Controls.Add(groupBox_D, 0, 0);
             tableLayoutPanel_Dest.Dock = DockStyle.Fill;
             tableLayoutPanel_Dest.Location = new Point(0, 0);
@@ -509,6 +501,50 @@
             tableLayoutPanel_Dest.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel_Dest.Size = new Size(520, 383);
             tableLayoutPanel_Dest.TabIndex = 0;
+            // 
+            // groupBox_WaveID
+            // 
+            groupBox_WaveID.Controls.Add(num_WaveID);
+            groupBox_WaveID.Dock = DockStyle.Fill;
+            groupBox_WaveID.Location = new Point(3, 257);
+            groupBox_WaveID.Name = "groupBox_WaveID";
+            groupBox_WaveID.Size = new Size(254, 123);
+            groupBox_WaveID.TabIndex = 6;
+            groupBox_WaveID.TabStop = false;
+            groupBox_WaveID.Text = "Wave ID";
+            // 
+            // num_WaveID
+            // 
+            num_WaveID.Dock = DockStyle.Fill;
+            num_WaveID.Location = new Point(3, 23);
+            num_WaveID.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            num_WaveID.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
+            num_WaveID.Name = "num_WaveID";
+            num_WaveID.Size = new Size(248, 27);
+            num_WaveID.TabIndex = 0;
+            num_WaveID.Value = new decimal(new int[] { 1, 0, 0, int.MinValue });
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(num_CueID);
+            groupBox3.Dock = DockStyle.Fill;
+            groupBox3.Location = new Point(3, 130);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(254, 121);
+            groupBox3.TabIndex = 5;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Cue ID";
+            // 
+            // num_CueID
+            // 
+            num_CueID.Dock = DockStyle.Fill;
+            num_CueID.Location = new Point(3, 23);
+            num_CueID.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            num_CueID.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
+            num_CueID.Name = "num_CueID";
+            num_CueID.Size = new Size(248, 27);
+            num_CueID.TabIndex = 0;
+            num_CueID.Value = new decimal(new int[] { 1, 0, 0, int.MinValue });
             // 
             // groupBox4
             // 
@@ -612,50 +648,6 @@
             txt_DestCostumeName.Size = new Size(248, 27);
             txt_DestCostumeName.TabIndex = 1;
             // 
-            // groupBox_DestLocation
-            // 
-            groupBox_DestLocation.Controls.Add(tlp_DestLocation);
-            groupBox_DestLocation.Dock = DockStyle.Fill;
-            groupBox_DestLocation.Location = new Point(3, 130);
-            groupBox_DestLocation.Name = "groupBox_DestLocation";
-            groupBox_DestLocation.Size = new Size(254, 121);
-            groupBox_DestLocation.TabIndex = 1;
-            groupBox_DestLocation.TabStop = false;
-            groupBox_DestLocation.Text = "Destination Location";
-            // 
-            // tlp_DestLocation
-            // 
-            tlp_DestLocation.ColumnCount = 2;
-            tlp_DestLocation.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 79.56778F));
-            tlp_DestLocation.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.43222F));
-            tlp_DestLocation.Controls.Add(btn_DestLocation, 1, 0);
-            tlp_DestLocation.Controls.Add(txt_DestPath, 0, 0);
-            tlp_DestLocation.Dock = DockStyle.Fill;
-            tlp_DestLocation.Location = new Point(3, 23);
-            tlp_DestLocation.Name = "tlp_DestLocation";
-            tlp_DestLocation.RowCount = 1;
-            tlp_DestLocation.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tlp_DestLocation.Size = new Size(248, 95);
-            tlp_DestLocation.TabIndex = 0;
-            // 
-            // btn_DestLocation
-            // 
-            btn_DestLocation.Dock = DockStyle.Fill;
-            btn_DestLocation.Location = new Point(200, 3);
-            btn_DestLocation.Name = "btn_DestLocation";
-            btn_DestLocation.Size = new Size(45, 89);
-            btn_DestLocation.TabIndex = 3;
-            btn_DestLocation.Text = "...";
-            btn_DestLocation.UseVisualStyleBackColor = true;
-            // 
-            // txt_DestPath
-            // 
-            txt_DestPath.Dock = DockStyle.Fill;
-            txt_DestPath.Location = new Point(3, 3);
-            txt_DestPath.Name = "txt_DestPath";
-            txt_DestPath.Size = new Size(191, 27);
-            txt_DestPath.TabIndex = 2;
-            // 
             // groupBox_D
             // 
             groupBox_D.Controls.Add(txt_DestName);
@@ -674,6 +666,20 @@
             txt_DestName.Name = "txt_DestName";
             txt_DestName.Size = new Size(248, 27);
             txt_DestName.TabIndex = 1;
+            // 
+            // moveUpToolStripMenuItem
+            // 
+            moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
+            moveUpToolStripMenuItem.Size = new Size(303, 24);
+            moveUpToolStripMenuItem.Text = "Move Up";
+            moveUpToolStripMenuItem.Click += MoveUp_Click;
+            // 
+            // moveDownToolStripMenuItem
+            // 
+            moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
+            moveDownToolStripMenuItem.Size = new Size(303, 24);
+            moveDownToolStripMenuItem.Text = "Move Down";
+            moveDownToolStripMenuItem.Click += MoveDown_Click;
             // 
             // P5VMusicTool
             // 
@@ -694,12 +700,10 @@
             splitContainer1.ResumeLayout(false);
             tlp_Collections.ResumeLayout(false);
             contextMenuStrip.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
+            tlp_Songs.ResumeLayout(false);
             groupBox_SongLocation.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
-            groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)num_SongCueID).EndInit();
             groupBox_SongDests.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -709,14 +713,15 @@
             ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
             splitContainer2.ResumeLayout(false);
             tableLayoutPanel_Dest.ResumeLayout(false);
+            groupBox_WaveID.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)num_WaveID).EndInit();
+            groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)num_CueID).EndInit();
             groupBox4.ResumeLayout(false);
             tlp_BattleBGM.ResumeLayout(false);
             tlp_BattleBGM.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            groupBox_DestLocation.ResumeLayout(false);
-            tlp_DestLocation.ResumeLayout(false);
-            tlp_DestLocation.PerformLayout();
             groupBox_D.ResumeLayout(false);
             groupBox_D.PerformLayout();
             ResumeLayout(false);
@@ -739,9 +744,7 @@
         private TableLayoutPanel tlp_Collections;
         private ListBox listBox_Songs;
         private ListBox listBox_Collections;
-        private TableLayoutPanel tableLayoutPanel1;
-        private GroupBox groupBox3;
-        private NumericUpDown num_SongCueID;
+        private TableLayoutPanel tlp_Songs;
         private GroupBox groupBox_SongDests;
         private GroupBox groupBox1;
         private TextBox txt_SongName;
@@ -749,10 +752,6 @@
         private SplitContainer splitContainer2;
         private ListBox listBox_Destinations;
         private TableLayoutPanel tableLayoutPanel_Dest;
-        private GroupBox groupBox_DestLocation;
-        private TableLayoutPanel tlp_DestLocation;
-        private Button btn_DestLocation;
-        private TextBox txt_DestPath;
         private GroupBox groupBox_D;
         private TextBox txt_DestName;
         private GroupBox groupBox2;
@@ -779,5 +778,12 @@
         private ToolStripMenuItem addDestToCurrentSongToolStripMenuItem;
         private ToolStripMenuItem removeDestFromCurrentSongToolStripMenuItem;
         private ToolStripMenuItem addDestinationToSelectedSongToolStripMenuItem;
+        private ToolStripMenuItem importToolStripMenuItem;
+        private GroupBox groupBox_WaveID;
+        private NumericUpDown num_WaveID;
+        private GroupBox groupBox3;
+        private NumericUpDown num_CueID;
+        private ToolStripMenuItem moveUpToolStripMenuItem;
+        private ToolStripMenuItem moveDownToolStripMenuItem;
     }
 }

@@ -16,14 +16,24 @@ namespace P5VMusicTool
             txt_SongName.DataBindings.Add("Text", selectedSong, "Name", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
-        private void SetSongCueID()
+        private void SetDestCueID()
         {
-            Song selectedSong = (Song)listBox_Songs.SelectedItem;
-            if (selectedSong == null)
+            Destination selectedDest = (Destination)listBox_Destinations.SelectedItem;
+            if (selectedDest == null)
                 return;
 
-            num_SongCueID.DataBindings.Clear();
-            num_SongCueID.DataBindings.Add("Value", selectedSong, "ID", false, DataSourceUpdateMode.OnPropertyChanged);
+            num_CueID.DataBindings.Clear();
+            num_CueID.DataBindings.Add("Value", selectedDest, "CueID", false, DataSourceUpdateMode.OnPropertyChanged);
+        }
+
+        private void SetDestWaveID()
+        {
+            Destination selectedDest = (Destination)listBox_Destinations.SelectedItem;
+            if (selectedDest == null)
+                return;
+
+            num_WaveID.DataBindings.Clear();
+            num_WaveID.DataBindings.Add("Value", selectedDest, "WaveID", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void SetSongPath()
@@ -44,16 +54,6 @@ namespace P5VMusicTool
 
             txt_DestName.DataBindings.Clear();
             txt_DestName.DataBindings.Add("Text", selectedDest, "Name", false, DataSourceUpdateMode.OnPropertyChanged);
-        }
-
-        private void SetDestinationPath()
-        {
-            Destination selectedDest = (Destination)listBox_Destinations.SelectedItem;
-            if (selectedDest == null)
-                return;
-
-            txt_DestPath.DataBindings.Clear();
-            txt_DestPath.DataBindings.Add("Text", selectedDest, "Path", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void SetDestinationCostumeName()

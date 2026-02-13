@@ -95,8 +95,6 @@ namespace P5VMusicTool
             [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
             public string Path { get; set; } = "";
             [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
-            public int ID { get; set; } = 0;
-            [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
             public List<string> DestinationNames { get; set; } = new List<string>();
         }
 
@@ -105,9 +103,11 @@ namespace P5VMusicTool
             [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
             public string Name { get; set; } = "";
             [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
-            public string Path { get; set; } = "";
-            [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
             public string CostumeName { get; set; } = "";
+            [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
+            public int CueID { get; set; } = -1;
+            [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
+            public int WaveID { get; set; } = -1;
             [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
             public bool NormalBattle { get; set; } = false;
             [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
