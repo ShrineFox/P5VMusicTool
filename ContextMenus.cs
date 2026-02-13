@@ -91,10 +91,10 @@ namespace P5VMusicTool
             Song selectedSong = (Song)listBox_Songs.SelectedItem;
             Destination selectedDestination = (Destination)listBox_Destinations.SelectedItem;
             if (selectedSong == null || selectedDestination == null) return;
-            if (!selectedSong.DestinationNames.Any(x => x.Equals(selectedDestination.Name)))
+            if (!selectedSong.DestinationIDs.Any(x => x.Equals(selectedDestination.InternalID)))
             {
-                selectedSong.DestinationNames.Add(selectedDestination.Name);
-                bs_SongDestinations.DataSource = selectedSong.DestinationNames;
+                selectedSong.DestinationIDs.Add(selectedDestination.InternalID);
+                bs_SongDestinations.DataSource = selectedSong.DestinationIDs;
                 bs_SongDestinations.ResetBindings(false); // update UI
                 tabControl_Main.SelectedIndex = 0; // switch to Songs tab
             }
@@ -113,9 +113,7 @@ namespace P5VMusicTool
         private void RemoveDestinationFromSelectedSong()
         {
             Song selectedSong = (Song)listBox_Songs.SelectedItem;
-            Destination selectedDestination = (Destination)listBox_Destinations.SelectedItem;
-            if (selectedSong == null || selectedDestination == null) return;
-            selectedSong.DestinationNames.RemoveAll(x => x.Equals(selectedDestination.Name));
+            selectedSong.DestinationIDs.RemoveAll(x => x.Equals((int)listBox_SongDestinations.SelectedItem));
             bs_SongDestinations.ResetBindings(false); // update UI
         }
 
@@ -126,14 +124,18 @@ namespace P5VMusicTool
 
         private void CreateDestination(bool addToCurrentSong = false)
         {
-            currentProject.Destinations.Add(new Destination() { Name = "New Destination" });
+            int i = 0;
+            while (currentProject.Destinations.Any(x => x.InternalID == i))
+                i++;
+
+            currentProject.Destinations.Add(new Destination() { Name = "New Destination", InternalID = i });
             if (addToCurrentSong)
             {
                 Song selectedSong = (Song)listBox_Songs.SelectedItem;
                 if (selectedSong != null)
                 {
-                    selectedSong.DestinationNames.Add(currentProject.Destinations.Last().Name);
-                    bs_SongDestinations.DataSource = selectedSong.DestinationNames;
+                    selectedSong.DestinationIDs.Add(currentProject.Destinations.Last().InternalID);
+                    bs_SongDestinations.DataSource = selectedSong.DestinationIDs;
                     bs_SongDestinations.ResetBindings(false); // update UI
                 }
             }
@@ -152,6 +154,13 @@ namespace P5VMusicTool
             Destination selectedDestination = (Destination)listBox_Destinations.SelectedItem;
             if (selectedDestination == null) return;
             currentProject.Destinations.Remove(selectedDestination);
+            foreach(var coll in currentProject.Collections)
+            {
+                foreach(var song in coll.Songs)
+                {
+                    song.DestinationIDs.RemoveAll(x => x.Equals(selectedDestination.InternalID));
+                }
+            }
             bs_Destinations.ResetBindings(false); // update UI
         }
 

@@ -53,6 +53,8 @@
             contextMenuStrip = new ContextMenuStrip(components);
             addToolStripMenuItem = new ToolStripMenuItem();
             removeToolStripMenuItem = new ToolStripMenuItem();
+            moveUpToolStripMenuItem = new ToolStripMenuItem();
+            moveDownToolStripMenuItem = new ToolStripMenuItem();
             addDestinationToSelectedSongToolStripMenuItem = new ToolStripMenuItem();
             listBox_Collections = new ListBox();
             tlp_Songs = new TableLayoutPanel();
@@ -83,8 +85,6 @@
             txt_DestCostumeName = new TextBox();
             groupBox_D = new GroupBox();
             txt_DestName = new TextBox();
-            moveUpToolStripMenuItem = new ToolStripMenuItem();
-            moveDownToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             tabControl_Main.SuspendLayout();
             tabPage_Songs.SuspendLayout();
@@ -300,7 +300,7 @@
             contextMenuStrip.ImageScalingSize = new Size(20, 20);
             contextMenuStrip.Items.AddRange(new ToolStripItem[] { addToolStripMenuItem, removeToolStripMenuItem, moveUpToolStripMenuItem, moveDownToolStripMenuItem, addDestinationToSelectedSongToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new Size(304, 152);
+            contextMenuStrip.Size = new Size(304, 124);
             contextMenuStrip.Opening += ContextMenu_Opening;
             // 
             // addToolStripMenuItem
@@ -316,6 +316,20 @@
             removeToolStripMenuItem.Size = new Size(303, 24);
             removeToolStripMenuItem.Text = "Remove";
             removeToolStripMenuItem.Click += Remove_Click;
+            // 
+            // moveUpToolStripMenuItem
+            // 
+            moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
+            moveUpToolStripMenuItem.Size = new Size(303, 24);
+            moveUpToolStripMenuItem.Text = "Move Up";
+            moveUpToolStripMenuItem.Click += MoveUp_Click;
+            // 
+            // moveDownToolStripMenuItem
+            // 
+            moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
+            moveDownToolStripMenuItem.Size = new Size(303, 24);
+            moveDownToolStripMenuItem.Text = "Move Down";
+            moveDownToolStripMenuItem.Click += MoveDown_Click;
             // 
             // addDestinationToSelectedSongToolStripMenuItem
             // 
@@ -666,20 +680,6 @@
             txt_DestName.Name = "txt_DestName";
             txt_DestName.Size = new Size(248, 27);
             txt_DestName.TabIndex = 1;
-            // 
-            // moveUpToolStripMenuItem
-            // 
-            moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
-            moveUpToolStripMenuItem.Size = new Size(303, 24);
-            moveUpToolStripMenuItem.Text = "Move Up";
-            moveUpToolStripMenuItem.Click += MoveUp_Click;
-            // 
-            // moveDownToolStripMenuItem
-            // 
-            moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
-            moveDownToolStripMenuItem.Size = new Size(303, 24);
-            moveDownToolStripMenuItem.Text = "Move Down";
-            moveDownToolStripMenuItem.Click += MoveDown_Click;
             // 
             // P5VMusicTool
             // 

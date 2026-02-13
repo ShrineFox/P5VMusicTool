@@ -12,11 +12,11 @@ namespace P5VMusicTool
             LoadDefaultProject();
             SetupCollectionListBox();
             SetupDestinationsListBox();
-            SetupSongDestListBox();
         }
 
         private void Import_Click(object sender, EventArgs e)
         {
+            /*
             currentProject.Destinations.Clear();
 
             var lines = File.ReadAllLines("text.txt");
@@ -42,6 +42,15 @@ namespace P5VMusicTool
                     }
                 }
             }
+            */
+
+            int i = 0;
+            foreach(var dest in currentProject.Destinations)
+            {
+                dest.InternalID = i;
+                i++;
+            }
+                
         }
     }
 }

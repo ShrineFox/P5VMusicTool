@@ -14,7 +14,6 @@ namespace P5VMusicTool
             currentProject = new Project();
             SetupCollectionListBox();
             SetupDestinationsListBox();
-            SetupSongDestListBox();
         }
 
         private void LoadDefaultProject()
@@ -32,7 +31,6 @@ namespace P5VMusicTool
 
             SetupCollectionListBox();
             SetupDestinationsListBox();
-            SetupSongDestListBox();
         }
 
         private void LoadProject_Click(object sender, EventArgs e)
@@ -95,11 +93,13 @@ namespace P5VMusicTool
             [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
             public string Path { get; set; } = "";
             [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
-            public List<string> DestinationNames { get; set; } = new List<string>();
+            public List<int> DestinationIDs { get; set; } = new List<int>();
         }
 
         public class Destination
         {
+            [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
+            public int InternalID { get; set; } = 0;
             [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
             public string Name { get; set; } = "";
             [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]

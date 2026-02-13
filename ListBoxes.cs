@@ -57,28 +57,39 @@ namespace P5VMusicTool
 
             SetSongName();
             SetSongPath();
-            bs_SongDestinations.DataSource = selectedSong.DestinationNames;
+            bs_SongDestinations.DataSource = selectedSong.DestinationIDs;
+            listBox_SongDestinations.DataSource = bs_SongDestinations;
+            listBox_SongDestinations.FormattingEnabled = true;
+            listBox_SongDestinations.Format += SongDestListBoxFormat;
             bs_SongDestinations.ResetBindings(false); // update UI
+
         }
 
         BindingSource bs_SongDestinations = new BindingSource();
-        private void SetupSongDestListBox()
+
+        private void SongDestListBoxFormat(object sender, ListControlConvertEventArgs e)
         {
-            bs_SongDestinations.DataSource = currentProject.Destinations;
-            listBox_SongDestinations.DataSource = bs_SongDestinations;
-            listBox_SongDestinations.DisplayMember = "Name";
+            int destID = (int)e.ListItem;
+
+            if (currentProject.Destinations.Any(x => x.InternalID.Equals(destID)))
+            {
+                Destination dest = currentProject.Destinations.First(x => x.InternalID.Equals(destID));
+
+                e.Value = $"[cue:{dest.CueID}] [wav:{dest.WaveID}] {dest.Name}";
+                e.Value += $" ({dest.CostumeName})";
+            }
         }
 
         private void SongDestinations_DoubleClick(object sender, EventArgs e)
         {
-            string selectedDestinationName = (string)listBox_SongDestinations.SelectedItem;
-            if (string.IsNullOrEmpty(selectedDestinationName))
+            int selectedDestinationID = (int)listBox_SongDestinations.SelectedItem;
+            if (selectedDestinationID == null)
                 return;
 
-            if (!currentProject.Destinations.Any(x => x.Name.Equals(selectedDestinationName)))
+            if (!currentProject.Destinations.Any(x => x.InternalID.Equals(selectedDestinationID)))
                 return;
 
-            Destination selectedDestination = currentProject.Destinations.First(x => x.Name.Equals(selectedDestinationName));
+            Destination selectedDestination = currentProject.Destinations.First(x => x.InternalID.Equals(selectedDestinationID));
             listBox_Destinations.SelectedItem = selectedDestination;
             tabControl_Main.SelectedIndex = 1; // switch to Destinations tab
         }
@@ -97,6 +108,17 @@ namespace P5VMusicTool
 
             if (currentProject.Destinations.Count > 0)
                 listBox_Destinations.SelectedIndex = 0;
+
+            listBox_Destinations.FormattingEnabled = true;
+            listBox_Destinations.Format += DestListBoxFormat;
+        }
+
+        private void DestListBoxFormat(object sender, ListControlConvertEventArgs e)
+        {
+            Destination dest = (Destination)e.ListItem;
+            e.Value = $"[cue:{dest.CueID}] [wav:{dest.WaveID}] {dest.Name}";
+            if (!string.IsNullOrEmpty(dest.CostumeName))
+                e.Value += $" ({dest.CostumeName})";
         }
 
         private void Destinations_SelectedIndexChanged(object sender, EventArgs e)
