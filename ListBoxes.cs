@@ -55,9 +55,9 @@ namespace P5VMusicTool
             if (selectedSong == null)
                 return;
 
-            txt_SongName.Text = selectedSong.Name;
-            txt_SongLocation.Text = selectedSong.Path;
-            num_SongCueID.Value = selectedSong.ID;
+            SetSongName();
+            SetSongCueID();
+            SetSongPath();
             bs_SongDestinations.DataSource = selectedSong.DestinationNames;
             bs_SongDestinations.ResetBindings(false); // update UI
         }
@@ -110,15 +110,14 @@ namespace P5VMusicTool
             if (selectedDestination == null)
                 return;
 
-            txt_DestName.Text = selectedDestination.Name;
-            txt_DestLocation.Text = selectedDestination.Path;
-            txt_DestCostumeName.Text = selectedDestination.CostumeName;
-
-            chk_DestNormal.Checked = selectedDestination.NormalBattle;
-            chk_DestAmbush.Checked = selectedDestination.AmbushBattle;
-            chk_DestPinch.Checked = selectedDestination.PinchBattle;
-            chk_DestTalk.Checked = selectedDestination.BattleTalk;
-            chk_DestVictory.Checked = selectedDestination.BattleVictory;
+            SetDestinationName();
+            SetDestinationPath();
+            SetDestinationCostumeName();
+            SetDestChk_NormalBattle();
+            SetDestChk_AmbushBattle();
+            SetDestChk_PinchBattle();
+            SetDestChk_BattleTalk();
+            SetDestChk_BattleVictory();
         }
 
     }

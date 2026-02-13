@@ -58,7 +58,7 @@
             groupBox_SongLocation = new GroupBox();
             tableLayoutPanel2 = new TableLayoutPanel();
             btn_SongLocation = new Button();
-            txt_SongLocation = new TextBox();
+            txt_SongPath = new TextBox();
             groupBox3 = new GroupBox();
             num_SongCueID = new NumericUpDown();
             groupBox_SongDests = new GroupBox();
@@ -81,7 +81,7 @@
             groupBox_DestLocation = new GroupBox();
             tlp_DestLocation = new TableLayoutPanel();
             btn_DestLocation = new Button();
-            txt_DestLocation = new TextBox();
+            txt_DestPath = new TextBox();
             groupBox_D = new GroupBox();
             txt_DestName = new TextBox();
             menuStrip1.SuspendLayout();
@@ -363,7 +363,7 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 79.56778F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.43222F));
             tableLayoutPanel2.Controls.Add(btn_SongLocation, 1, 0);
-            tableLayoutPanel2.Controls.Add(txt_SongLocation, 0, 0);
+            tableLayoutPanel2.Controls.Add(txt_SongPath, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 23);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -382,13 +382,13 @@
             btn_SongLocation.Text = "...";
             btn_SongLocation.UseVisualStyleBackColor = true;
             // 
-            // txt_SongLocation
+            // txt_SongPath
             // 
-            txt_SongLocation.Dock = DockStyle.Fill;
-            txt_SongLocation.Location = new Point(3, 3);
-            txt_SongLocation.Name = "txt_SongLocation";
-            txt_SongLocation.Size = new Size(398, 27);
-            txt_SongLocation.TabIndex = 2;
+            txt_SongPath.Dock = DockStyle.Fill;
+            txt_SongPath.Location = new Point(3, 3);
+            txt_SongPath.Name = "txt_SongPath";
+            txt_SongPath.Size = new Size(398, 27);
+            txt_SongPath.TabIndex = 2;
             // 
             // groupBox3
             // 
@@ -629,7 +629,7 @@
             tlp_DestLocation.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 79.56778F));
             tlp_DestLocation.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.43222F));
             tlp_DestLocation.Controls.Add(btn_DestLocation, 1, 0);
-            tlp_DestLocation.Controls.Add(txt_DestLocation, 0, 0);
+            tlp_DestLocation.Controls.Add(txt_DestPath, 0, 0);
             tlp_DestLocation.Dock = DockStyle.Fill;
             tlp_DestLocation.Location = new Point(3, 23);
             tlp_DestLocation.Name = "tlp_DestLocation";
@@ -648,13 +648,13 @@
             btn_DestLocation.Text = "...";
             btn_DestLocation.UseVisualStyleBackColor = true;
             // 
-            // txt_DestLocation
+            // txt_DestPath
             // 
-            txt_DestLocation.Dock = DockStyle.Fill;
-            txt_DestLocation.Location = new Point(3, 3);
-            txt_DestLocation.Name = "txt_DestLocation";
-            txt_DestLocation.Size = new Size(191, 27);
-            txt_DestLocation.TabIndex = 2;
+            txt_DestPath.Dock = DockStyle.Fill;
+            txt_DestPath.Location = new Point(3, 3);
+            txt_DestPath.Name = "txt_DestPath";
+            txt_DestPath.Size = new Size(191, 27);
+            txt_DestPath.TabIndex = 2;
             // 
             // groupBox_D
             // 
@@ -752,7 +752,7 @@
         private GroupBox groupBox_DestLocation;
         private TableLayoutPanel tlp_DestLocation;
         private Button btn_DestLocation;
-        private TextBox txt_DestLocation;
+        private TextBox txt_DestPath;
         private GroupBox groupBox_D;
         private TextBox txt_DestName;
         private GroupBox groupBox2;
@@ -773,7 +773,7 @@
         private GroupBox groupBox_SongLocation;
         private TableLayoutPanel tableLayoutPanel2;
         private Button btn_SongLocation;
-        private TextBox txt_SongLocation;
+        private TextBox txt_SongPath;
         private ToolStripMenuItem addSongToolStripMenuItem;
         private ToolStripMenuItem removeSongToolStripMenuItem;
         private ToolStripMenuItem addDestToCurrentSongToolStripMenuItem;
