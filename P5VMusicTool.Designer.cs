@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(P5VMusicTool));
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             newProjectToolStripMenuItem = new ToolStripMenuItem();
@@ -688,6 +689,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(tabControl_Main);
             Controls.Add(menuStrip1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "P5VMusicTool";
             Text = "Persona 5 Vinesauce BGM Tool";
             menuStrip1.ResumeLayout(false);
