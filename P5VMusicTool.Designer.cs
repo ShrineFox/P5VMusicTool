@@ -81,8 +81,8 @@
             // tlp_Collections
             // 
             tlp_Collections.ColumnCount = 2;
-            tlp_Collections.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tlp_Collections.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlp_Collections.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36.4661636F));
+            tlp_Collections.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 63.5338364F));
             tlp_Collections.Controls.Add(listBox_Songs, 1, 0);
             tlp_Collections.Controls.Add(listBox_Collections, 0, 0);
             tlp_Collections.Dock = DockStyle.Fill;
@@ -97,9 +97,9 @@
             // 
             listBox_Songs.Dock = DockStyle.Fill;
             listBox_Songs.FormattingEnabled = true;
-            listBox_Songs.Location = new Point(136, 3);
+            listBox_Songs.Location = new Point(100, 3);
             listBox_Songs.Name = "listBox_Songs";
-            listBox_Songs.Size = new Size(127, 416);
+            listBox_Songs.Size = new Size(163, 416);
             listBox_Songs.TabIndex = 1;
             listBox_Songs.SelectedIndexChanged += Song_SelectedIndexChanged;
             // 
@@ -109,7 +109,7 @@
             listBox_Collections.FormattingEnabled = true;
             listBox_Collections.Location = new Point(3, 3);
             listBox_Collections.Name = "listBox_Collections";
-            listBox_Collections.Size = new Size(127, 416);
+            listBox_Collections.Size = new Size(91, 416);
             listBox_Collections.TabIndex = 0;
             listBox_Collections.SelectedIndexChanged += Collection_SelectedIndexChanged;
             // 
@@ -245,6 +245,7 @@
             addCollectionToolStripMenuItem.Name = "addCollectionToolStripMenuItem";
             addCollectionToolStripMenuItem.Size = new Size(217, 26);
             addCollectionToolStripMenuItem.Text = "Add Collection";
+            addCollectionToolStripMenuItem.Click += AddCollection_Click;
             // 
             // removeCollectionToolStripMenuItem
             // 
