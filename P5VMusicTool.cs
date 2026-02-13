@@ -34,6 +34,9 @@ namespace P5VMusicTool
         private void NewProject_Click(object sender, EventArgs e)
         {
             currentProject = new Project();
+            SetupCollectionListBox();
+            SetupDestinationsListBox();
+            SetupSongDestListBox();
         }
 
         BindingSource bs_Destinations = new BindingSource();
@@ -88,7 +91,7 @@ namespace P5VMusicTool
             listBox_Songs.DataSource = bs_Songs;
             listBox_Songs.DisplayMember = "Name";
 
-            bs_Collection.ResetBindings(false); // update UI
+            bs_Songs.ResetBindings(false); // update UI
 
             if (selectedCollection.Songs.Count > 0)
                 listBox_Songs.SelectedIndex = 0;
@@ -96,10 +99,12 @@ namespace P5VMusicTool
 
         private void Song_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SongCollection selectedCollection = (SongCollection)listBox_Collections.SelectedItem;
+            if (selectedCollection == null) return;
+
             Song selectedSong = (Song)listBox_Songs.SelectedItem;
             if (selectedSong == null)
                 return;
-            SongCollection selectedCollection = (SongCollection)listBox_Collections.SelectedItem;
 
             txt_SongName.Text = selectedSong.Name;
             txt_SongLocation.Text = selectedSong.Path;
@@ -146,21 +151,6 @@ namespace P5VMusicTool
             }
         }
 
-        public static string lastClickedListBox = "";
-        private void ListView_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                lastClickedListBox = ((ListBox)sender).Name;
-
-                if (lastClickedListBox == "listBox_Destinations")
-                    addDestinationToSelectedSongToolStripMenuItem.Visible = true;
-                else
-                    addDestinationToSelectedSongToolStripMenuItem.Visible = false;
-
-                contextMenuStrip.Show(Cursor.Position);
-            }
-        }
 
         private void Add_Click(object sender, EventArgs e)
         {
@@ -197,7 +187,7 @@ namespace P5VMusicTool
 
             OpenFileDialog fileDlg = new OpenFileDialog();
             fileDlg.Title = "Select Song to Add";
-            fileDlg.Filter = "CRIWare Audio (*.adx)|*.exe";
+            fileDlg.Filter = "CRIWare Audio (*.adx)|*.adx";
 
             var result = fileDlg.ShowDialog();
             if (result == DialogResult.OK)
@@ -266,7 +256,19 @@ namespace P5VMusicTool
             bs_Destinations.ResetBindings(false); // update UI
         }
 
+        public static string lastClickedListBox = "";
 
+        private void ContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var menu = (ContextMenuStrip)sender;
+            Control source = menu.SourceControl;
+            lastClickedListBox = source.Name;
+
+            if (lastClickedListBox == "listBox_Destinations")
+                addDestinationToSelectedSongToolStripMenuItem.Visible = true;
+            else
+                addDestinationToSelectedSongToolStripMenuItem.Visible = false;
+        }
     }
 
     public class Project

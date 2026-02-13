@@ -49,6 +49,10 @@
             splitContainer1 = new SplitContainer();
             tlp_Collections = new TableLayoutPanel();
             listBox_Songs = new ListBox();
+            contextMenuStrip = new ContextMenuStrip(components);
+            addToolStripMenuItem = new ToolStripMenuItem();
+            removeToolStripMenuItem = new ToolStripMenuItem();
+            addDestinationToSelectedSongToolStripMenuItem = new ToolStripMenuItem();
             listBox_Collections = new ListBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBox_SongLocation = new GroupBox();
@@ -80,10 +84,6 @@
             txt_DestLocation = new TextBox();
             groupBox_D = new GroupBox();
             txt_DestName = new TextBox();
-            contextMenuStrip = new ContextMenuStrip(components);
-            addToolStripMenuItem = new ToolStripMenuItem();
-            removeToolStripMenuItem = new ToolStripMenuItem();
-            addDestinationToSelectedSongToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             tabControl_Main.SuspendLayout();
             tabPage_Songs.SuspendLayout();
@@ -92,6 +92,7 @@
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
             tlp_Collections.SuspendLayout();
+            contextMenuStrip.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             groupBox_SongLocation.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -111,7 +112,6 @@
             groupBox_DestLocation.SuspendLayout();
             tlp_DestLocation.SuspendLayout();
             groupBox_D.SuspendLayout();
-            contextMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -273,6 +273,7 @@
             // 
             // listBox_Songs
             // 
+            listBox_Songs.ContextMenuStrip = contextMenuStrip;
             listBox_Songs.Dock = DockStyle.Fill;
             listBox_Songs.FormattingEnabled = true;
             listBox_Songs.Location = new Point(98, 3);
@@ -281,15 +282,44 @@
             listBox_Songs.TabIndex = 1;
             listBox_Songs.SelectedIndexChanged += Song_SelectedIndexChanged;
             // 
+            // contextMenuStrip
+            // 
+            contextMenuStrip.ImageScalingSize = new Size(20, 20);
+            contextMenuStrip.Items.AddRange(new ToolStripItem[] { addToolStripMenuItem, removeToolStripMenuItem, addDestinationToSelectedSongToolStripMenuItem });
+            contextMenuStrip.Name = "contextMenuStrip";
+            contextMenuStrip.Size = new Size(304, 76);
+            contextMenuStrip.Opening += ContextMenu_Opening;
+            // 
+            // addToolStripMenuItem
+            // 
+            addToolStripMenuItem.Name = "addToolStripMenuItem";
+            addToolStripMenuItem.Size = new Size(303, 24);
+            addToolStripMenuItem.Text = "Add";
+            addToolStripMenuItem.Click += Add_Click;
+            // 
+            // removeToolStripMenuItem
+            // 
+            removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            removeToolStripMenuItem.Size = new Size(303, 24);
+            removeToolStripMenuItem.Text = "Remove";
+            removeToolStripMenuItem.Click += Remove_Click;
+            // 
+            // addDestinationToSelectedSongToolStripMenuItem
+            // 
+            addDestinationToSelectedSongToolStripMenuItem.Name = "addDestinationToSelectedSongToolStripMenuItem";
+            addDestinationToSelectedSongToolStripMenuItem.Size = new Size(303, 24);
+            addDestinationToSelectedSongToolStripMenuItem.Text = "Add Destination to Selected Song";
+            addDestinationToSelectedSongToolStripMenuItem.Click += AddDestinationToSelectedSong_Click;
+            // 
             // listBox_Collections
             // 
+            listBox_Collections.ContextMenuStrip = contextMenuStrip;
             listBox_Collections.Dock = DockStyle.Fill;
             listBox_Collections.FormattingEnabled = true;
             listBox_Collections.Location = new Point(3, 3);
             listBox_Collections.Name = "listBox_Collections";
             listBox_Collections.Size = new Size(89, 377);
             listBox_Collections.TabIndex = 0;
-            listBox_Collections.MouseClick += ListView_MouseClick;
             listBox_Collections.SelectedIndexChanged += Collection_SelectedIndexChanged;
             // 
             // tableLayoutPanel1
@@ -390,6 +420,7 @@
             // 
             // listBox_SongDestinations
             // 
+            listBox_SongDestinations.ContextMenuStrip = contextMenuStrip;
             listBox_SongDestinations.Dock = DockStyle.Fill;
             listBox_SongDestinations.FormattingEnabled = true;
             listBox_SongDestinations.Location = new Point(3, 23);
@@ -446,13 +477,13 @@
             // 
             // listBox_Destinations
             // 
+            listBox_Destinations.ContextMenuStrip = contextMenuStrip;
             listBox_Destinations.Dock = DockStyle.Fill;
             listBox_Destinations.FormattingEnabled = true;
             listBox_Destinations.Location = new Point(0, 0);
             listBox_Destinations.Name = "listBox_Destinations";
             listBox_Destinations.Size = new Size(262, 383);
             listBox_Destinations.TabIndex = 1;
-            listBox_Destinations.MouseClick += ListView_MouseClick;
             // 
             // tableLayoutPanel_Dest
             // 
@@ -638,34 +669,6 @@
             txt_DestName.Size = new Size(248, 27);
             txt_DestName.TabIndex = 1;
             // 
-            // contextMenuStrip
-            // 
-            contextMenuStrip.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip.Items.AddRange(new ToolStripItem[] { addToolStripMenuItem, removeToolStripMenuItem, addDestinationToSelectedSongToolStripMenuItem });
-            contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new Size(304, 76);
-            // 
-            // addToolStripMenuItem
-            // 
-            addToolStripMenuItem.Name = "addToolStripMenuItem";
-            addToolStripMenuItem.Size = new Size(303, 24);
-            addToolStripMenuItem.Text = "Add";
-            addToolStripMenuItem.Click += Add_Click;
-            // 
-            // removeToolStripMenuItem
-            // 
-            removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            removeToolStripMenuItem.Size = new Size(303, 24);
-            removeToolStripMenuItem.Text = "Remove";
-            removeToolStripMenuItem.Click += Remove_Click;
-            // 
-            // addDestinationToSelectedSongToolStripMenuItem
-            // 
-            addDestinationToSelectedSongToolStripMenuItem.Name = "addDestinationToSelectedSongToolStripMenuItem";
-            addDestinationToSelectedSongToolStripMenuItem.Size = new Size(303, 24);
-            addDestinationToSelectedSongToolStripMenuItem.Text = "Add Destination to Selected Song";
-            addDestinationToSelectedSongToolStripMenuItem.Click += AddDestinationToSelectedSong_Click;
-            // 
             // P5VMusicTool
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -684,6 +687,7 @@
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             tlp_Collections.ResumeLayout(false);
+            contextMenuStrip.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             groupBox_SongLocation.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
@@ -709,7 +713,6 @@
             tlp_DestLocation.PerformLayout();
             groupBox_D.ResumeLayout(false);
             groupBox_D.PerformLayout();
-            contextMenuStrip.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
