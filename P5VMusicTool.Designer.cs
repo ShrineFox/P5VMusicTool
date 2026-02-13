@@ -77,7 +77,7 @@
             chk_DestAmbush = new CheckBox();
             chk_DestNormal = new CheckBox();
             groupBox2 = new GroupBox();
-            textBox1 = new TextBox();
+            txt_DestCostumeName = new TextBox();
             groupBox_DestLocation = new GroupBox();
             tlp_DestLocation = new TableLayoutPanel();
             btn_DestLocation = new Button();
@@ -143,12 +143,14 @@
             loadProjectToolStripMenuItem.Name = "loadProjectToolStripMenuItem";
             loadProjectToolStripMenuItem.Size = new Size(188, 26);
             loadProjectToolStripMenuItem.Text = "Load Project";
+            loadProjectToolStripMenuItem.Click += LoadProject_Click;
             // 
             // saveProjectToolStripMenuItem
             // 
             saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
             saveProjectToolStripMenuItem.Size = new Size(188, 26);
             saveProjectToolStripMenuItem.Text = "Save Project";
+            saveProjectToolStripMenuItem.Click += SaveProject_Click;
             // 
             // generateBGMToolStripMenuItem
             // 
@@ -484,6 +486,7 @@
             listBox_Destinations.Name = "listBox_Destinations";
             listBox_Destinations.Size = new Size(262, 383);
             listBox_Destinations.TabIndex = 1;
+            listBox_Destinations.SelectedIndexChanged += Destinations_SelectedIndexChanged;
             // 
             // tableLayoutPanel_Dest
             // 
@@ -589,7 +592,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(textBox1);
+            groupBox2.Controls.Add(txt_DestCostumeName);
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(263, 3);
             groupBox2.Name = "groupBox2";
@@ -598,13 +601,13 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Costume Name";
             // 
-            // textBox1
+            // txt_DestCostumeName
             // 
-            textBox1.Dock = DockStyle.Fill;
-            textBox1.Location = new Point(3, 23);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(248, 27);
-            textBox1.TabIndex = 1;
+            txt_DestCostumeName.Dock = DockStyle.Fill;
+            txt_DestCostumeName.Location = new Point(3, 23);
+            txt_DestCostumeName.Name = "txt_DestCostumeName";
+            txt_DestCostumeName.Size = new Size(248, 27);
+            txt_DestCostumeName.TabIndex = 1;
             // 
             // groupBox_DestLocation
             // 
@@ -750,7 +753,7 @@
         private GroupBox groupBox_D;
         private TextBox txt_DestName;
         private GroupBox groupBox2;
-        private TextBox textBox1;
+        private TextBox txt_DestCostumeName;
         private GroupBox groupBox4;
         private TableLayoutPanel tlp_BattleBGM;
         private CheckBox chk_DestAmbush;

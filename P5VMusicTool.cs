@@ -1,5 +1,6 @@
 using System.Drawing.Text;
 using System.Security;
+using Newtonsoft.Json;
 
 namespace P5VMusicTool
 {
@@ -28,7 +29,12 @@ namespace P5VMusicTool
 
         private void LoadProject(string jsonPath)
         {
-            throw new NotImplementedException();
+            string json = File.ReadAllText(jsonPath);
+            currentProject = JsonConvert.DeserializeObject<Project>(json);
+
+            SetupCollectionListBox();
+            SetupDestinationsListBox();
+            SetupSongDestListBox();
         }
 
         private void NewProject_Click(object sender, EventArgs e)
@@ -269,32 +275,110 @@ namespace P5VMusicTool
             else
                 addDestinationToSelectedSongToolStripMenuItem.Visible = false;
         }
+
+        private void LoadProject_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDlg = new OpenFileDialog();
+            fileDlg.Title = "Choose Project to Load";
+            fileDlg.Filter = "P5V Music Project (*.json)|*.json";
+
+            var result = fileDlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                LoadProject(fileDlg.FileName);
+            }
+        }
+
+        private void SaveProject_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog fileDlg = new SaveFileDialog();
+            fileDlg.Title = "Choose Where to Save Project";
+            fileDlg.Filter = "P5V Music Project (*.json)|*.json";
+
+            var result = fileDlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                SaveProject(fileDlg.FileName);
+            }
+        }
+
+        private void SaveProject(string jsonPath)
+        {
+            if (!jsonPath.ToLower().EndsWith(".json"))
+                jsonPath += ".json";
+
+            File.WriteAllText(jsonPath, JsonConvert.SerializeObject(currentProject, Newtonsoft.Json.Formatting.Indented));
+        }
+
+        private void Destinations_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (currentProject == null)
+                return;
+
+            Destination selectedDestination = (Destination)listBox_Destinations.SelectedItem;
+
+            if (selectedDestination == null)
+                return;
+
+            txt_DestName.Text = selectedDestination.Name;
+            txt_DestLocation.Text = selectedDestination.Path;
+            txt_DestCostumeName.Text = selectedDestination.CostumeName;
+
+            chk_DestNormal.Checked = selectedDestination.NormalBattle;
+            chk_DestAmbush.Checked = selectedDestination.AmbushBattle;
+            chk_DestPinch.Checked = selectedDestination.PinchBattle;
+            chk_DestTalk.Checked = selectedDestination.BattleTalk;
+            chk_DestVictory.Checked = selectedDestination.BattleVictory;
+        }
     }
 
     public class Project
     {
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public List<SongCollection> Collections { get; set; } = new List<SongCollection>();
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public List<Destination> Destinations { get; set; } = new List<Destination>();
     }
 
     public class SongCollection
     {
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public string Name { get; set; } = "";
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public string Path { get; set; } = "";
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public List<Song> Songs { get; set; } = new List<Song>();
     }
 
     public class Song
     {
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public string Name { get; set; } = "";
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public string Path { get; set; } = "";
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public int ID { get; set; } = 0;
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public List<string> DestinationNames { get; set; } = new List<string>();
     }
 
     public class Destination
     {
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
         public string Name { get; set; } = "";
-        public string CollectionPath { get; set; } = "";
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
+        public string Path { get; set; } = "";
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
+        public string CostumeName { get; set; } = "";
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
+        public bool NormalBattle { get; set; } = false;
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
+        public bool AmbushBattle { get; set; } = false;
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
+        public bool PinchBattle { get; set; } = false;
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
+        public bool BattleTalk { get; set; } = false;
+        [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]
+        public bool BattleVictory { get; set; } = false;
     }
 }
