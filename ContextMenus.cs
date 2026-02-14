@@ -86,7 +86,7 @@ namespace P5VMusicTool
             AddDestinationToSelectedSong();
         }
 
-        private void AddDestinationToSelectedSong()
+        private void AddDestinationToSelectedSong(bool updateUI = true)
         {
             Song selectedSong = (Song)listBox_Songs.SelectedItem;
             Destination selectedDestination = (Destination)listBox_Destinations.SelectedItem;
@@ -95,8 +95,11 @@ namespace P5VMusicTool
             {
                 selectedSong.DestinationIDs.Add(selectedDestination.InternalID);
                 bs_SongDestinations.DataSource = selectedSong.DestinationIDs;
-                bs_SongDestinations.ResetBindings(false); // update UI
-                tabControl_Main.SelectedIndex = 0; // switch to Songs tab
+                if (updateUI)
+                {
+                    bs_SongDestinations.ResetBindings(false); // update UI
+                    tabControl_Main.SelectedIndex = 0; // switch to Songs tab
+                }
             }
         }
 

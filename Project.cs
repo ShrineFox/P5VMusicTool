@@ -28,7 +28,7 @@ namespace P5VMusicTool
         {
             string json = File.ReadAllText(jsonPath);
             currentProject = JsonConvert.DeserializeObject<Project>(json);
-
+            currentProject.Destinations = currentProject.Destinations.OrderBy(x => x.WaveID).ToList();
             SetupCollectionListBox();
             SetupDestinationsListBox();
         }

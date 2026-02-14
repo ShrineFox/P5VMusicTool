@@ -162,6 +162,8 @@ namespace P5VMusicTool
                 MoveSelectedItem(-1);
             else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Down)
                 MoveSelectedItem(1);
+            else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.A)
+                AddDestinationToSelectedSong(false);
         }
 
         private void MoveSelectedItem(int direction)

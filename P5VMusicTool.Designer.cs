@@ -45,7 +45,6 @@
             removeDestinationToolStripMenuItem = new ToolStripMenuItem();
             addDestToCurrentSongToolStripMenuItem = new ToolStripMenuItem();
             removeDestFromCurrentSongToolStripMenuItem = new ToolStripMenuItem();
-            importToolStripMenuItem = new ToolStripMenuItem();
             tabControl_Main = new TabControl();
             tabPage_Songs = new TabPage();
             splitContainer1 = new SplitContainer();
@@ -119,7 +118,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, importToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 28);
@@ -222,13 +221,6 @@
             removeDestFromCurrentSongToolStripMenuItem.Size = new Size(306, 26);
             removeDestFromCurrentSongToolStripMenuItem.Text = "Remove Dest from Current Song";
             removeDestFromCurrentSongToolStripMenuItem.Click += RemoveDestFromCurrentSong_Click;
-            // 
-            // importToolStripMenuItem
-            // 
-            importToolStripMenuItem.Name = "importToolStripMenuItem";
-            importToolStripMenuItem.Size = new Size(68, 24);
-            importToolStripMenuItem.Text = "Import";
-            importToolStripMenuItem.Click += Import_Click;
             // 
             // tabControl_Main
             // 
@@ -780,7 +772,6 @@
         private ToolStripMenuItem addDestToCurrentSongToolStripMenuItem;
         private ToolStripMenuItem removeDestFromCurrentSongToolStripMenuItem;
         private ToolStripMenuItem addDestinationToSelectedSongToolStripMenuItem;
-        private ToolStripMenuItem importToolStripMenuItem;
         private GroupBox groupBox_WaveID;
         private NumericUpDown num_WaveID;
         private GroupBox groupBox3;
